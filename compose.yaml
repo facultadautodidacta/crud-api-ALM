@@ -12,6 +12,7 @@ services:
     environment:
       MONGODB_URI: "mongodb://devroot:devpass@mongo:27017/laravel_app?authSource=admin"
       MONGODB_DATABASE: "laravel_app"
+      SESSION_DRIVER: "file"
     depends_on:
       - mongo
     command:
