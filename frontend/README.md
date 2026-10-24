@@ -12,6 +12,12 @@ ng serve
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
+When running with Docker Compose, the Angular dev-server proxy forwards `/api` requests
+to the `laravel` service on port `8000`. Use the Compose service name rather than
+`localhost`, since `localhost` inside the Angular container refers to that container.
+If running Angular directly on the host, change the proxy target to
+`http://127.0.0.1:8000`.
+
 ## Code scaffolding
 
 Angular CLI includes powerful code scaffolding tools. To generate a new component, run:

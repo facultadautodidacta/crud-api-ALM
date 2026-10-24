@@ -3,7 +3,7 @@ services:
   laravel:
     build:
       context: ./backend
-    container_name: desarrollo_laravel
+    container_name: laravel_api_crud
     working_dir: /var/www/html
     volumes:
       - ./backend:/var/www/html
@@ -28,7 +28,7 @@ services:
   angular:
     build:
       context: ./frontend
-    container_name: desarrollo_angular
+    container_name: angular_api_crud
     working_dir: /app
     volumes:
       - ./frontend:/app
@@ -37,7 +37,7 @@ services:
 
   mongo:
     image: docker.io/library/mongo:7.0
-    container_name: desarrollo_mongodb
+    container_name: mongodb_api_crud
     restart: unless-stopped
     environment:
       MONGO_INITDB_ROOT_USERNAME: devroot

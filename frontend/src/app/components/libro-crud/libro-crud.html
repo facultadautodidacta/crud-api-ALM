@@ -1,0 +1,49 @@
+<div style="padding: 20px; font-family: sans-serif;">
+  <h2>Gestión de Libros</h2>
+  <p *ngIf="errorMessage()" role="alert">
+    {{ errorMessage() }}
+    <button type="button" (click)="loadLibros()" [disabled]="loading()">Reintentar</button>
+  </p>
+
+  <form [formGroup]="libroForm" (ngSubmit)="onSubmit()" style="display: flex; gap: 10px; margin-bottom: 20px;">
+    <input formControlName="titulo" placeholder="Título (Obligatorio)">
+    <input formControlName="autor" placeholder="Autor (Obligatorio)">
+    <input formControlName="genero" placeholder="Género">
+    <input type="number" formControlName="anio_publicacion" placeholder="Año">
+    
+    <button type="submit" [disabled]="saving()">{{ saving() ? 'Guardando...' : editingId() ? 'Actualizar' : 'Crear' }}</button>
+    <button type="button" (click)="resetForm()" *ngIf="editingId()">Cancelar</button>
+  </form>
+
+  <table border="1" style="width: 100%; text-align: left; border-collapse: collapse;">
+    <thead>
+      <tr style="background-color: #eee;">
+        <th style="padding: 8px;">ID</th>
+        <th style="padding: 8px;">Título</th>
+        <th style="padding: 8px;">Autor</th>
+        <th style="padding: 8px;">Género</th>
+        <th style="padding: 8px;">Año</th>
+        <th style="padding: 8px;">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="loading()">
+        <td colspan="6" style="padding: 8px;">Cargando libros...</td>
+      </tr>
+      <tr *ngIf="!loading() && libros().length === 0">
+        <td colspan="6" style="padding: 8px;">No hay libros registrados.</td>
+      </tr>
+      <tr *ngFor="let libro of libros()">
+        <td style="padding: 8px;">{{ libro.id }}</td>
+        <td style="padding: 8px;">{{ libro.titulo }}</td>
+        <td style="padding: 8px;">{{ libro.autor }}</td>
+        <td style="padding: 8px;">{{ libro.genero || '-' }}</td>
+        <td style="padding: 8px;">{{ libro.anio_publicacion || '-' }}</td>
+        <td style="padding: 8px;">
+          <button (click)="editLibro(libro)">Editar</button>
+          <button (click)="deleteLibro(libro.id!)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
